@@ -3,10 +3,11 @@ author: Jacob Egner
 date:   2018-12-24
 repo:   https://github.com/jmegner/advent_of_code_2018
 notes:
-  I felt a desire for python's Counter class, and maybe I should have used node's pycollections module;
-  https://stackoverflow.com/questions/26320253/is-there-a-javascript-function-similar-to-the-python-counter-function
+  I was lured to use lodash module because of its countBy function:
+  https://lodash.com/docs/4.17.11#countBy
 
-  Or maybe use lodash's countBy function: https://lodash.com/docs/4.17.11#countBy
+  But originally, I felt a desire for python's Counter class, which is available from the pycollections module;
+  https://stackoverflow.com/questions/26320253/is-there-a-javascript-function-similar-to-the-python-counter-function
 
   Seems like String.prototype.slice is better than String.prototype.substring (and deprecated String.prototype.substr);
   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
@@ -16,12 +17,14 @@ notes:
 const _ = require('lodash');
 const common = require('./common.js');
 
+
 (function main() {
   const boxIds = common.readLines('day02_input.txt');
   common.check(part1, boxIds, 7533);
   common.check(part2, boxIds, 'mphcuasvrnjzzkbgdtqeoylva');
   console.debug("end");
 })();
+
 
 function part1(boxIds)
 {

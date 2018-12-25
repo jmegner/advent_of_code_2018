@@ -10,6 +10,7 @@ notes:
 
 const common = require('./common.js');
 
+
 (function main() {
   const inNums = common.readNums('day01_input.txt');
   common.check(part1, inNums, 569);
@@ -17,7 +18,6 @@ const common = require('./common.js');
   console.debug("end");
 })();
 
-//------------------------------------------------------------------------------
 
 function part1(inNums)
 {
