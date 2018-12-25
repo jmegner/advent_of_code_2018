@@ -6,29 +6,35 @@ notes:
   I felt a desire for python's Counter class, and maybe I should have used node's pycollections module;
   https://stackoverflow.com/questions/26320253/is-there-a-javascript-function-similar-to-the-python-counter-function
 
+  Or maybe use lodash's countBy function: https://lodash.com/docs/4.17.11#countBy
+
   Seems like String.prototype.slice is better than String.prototype.substring (and deprecated String.prototype.substr);
   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
   https://stackoverflow.com/questions/2243824/what-is-the-difference-between-string-slice-and-string-substring
 */
 
+const _ = require('lodash');
 const common = require('./common.js');
-const boxIds = common.readLines('day02_input.txt');
 
-//------------------------------------------------------------------------------
+(function main() {
+  const boxIds = common.readLines('day02_input.txt');
+  common.check(part1, boxIds, 7533);
+  common.check(part2, boxIds, 'mphcuasvrnjzzkbgdtqeoylva');
+  console.debug("end");
+})();
 
-const numBoxesWithCount2 = numBoxesWithExactCount(boxIds, 2);
-const numBoxesWithCount3 = numBoxesWithExactCount(boxIds, 3);
-const checksum = numBoxesWithCount2 * numBoxesWithCount3;
+function part1(boxIds)
+{
+  const numBoxesWithCount2 = numBoxesWithExactCount(boxIds, 2);
+  const numBoxesWithCount3 = numBoxesWithExactCount(boxIds, 3);
+  const checksum = numBoxesWithCount2 * numBoxesWithCount3;
+  return checksum;
+}
 
-console.log("part1:", checksum, '(should be 7533)');
-
-//------------------------------------------------------------------------------
-
-console.log("part2:", getPartialMatch(boxIds), '(should be mphcuasvrnjzzkbgdtqeoylva)');
-console.debug("end");
-
-//------------------------------------------------------------------------------
-
+function part2(boxIds)
+{
+  return getPartialMatch(boxIds);
+}
 
 function numBoxesWithExactCount(boxIds, desiredCount)
 {
@@ -37,13 +43,7 @@ function numBoxesWithExactCount(boxIds, desiredCount)
 
 function hasExactCount(text, desiredCount)
 {
-  let charCounter = {};
-  for(let char of text)
-  {
-    charCounter[char] = (charCounter[char] || 0) + 1;
-  }
-
-  return Object.keys(charCounter).some(char => charCounter[char] === desiredCount);
+  return _.values(_.countBy(text)).includes(desiredCount);
 }
 
 function getPartialMatch(boxIds)

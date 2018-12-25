@@ -11,6 +11,7 @@ notes:
   Array iteration helpers: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 */
 
+module.exports.check = check;
 module.exports.readLines = readLines;
 module.exports.readNums = readNums;
 
@@ -27,4 +28,14 @@ function readLines(inputPath)
 function readNums(inputPath)
 {
   return readLines(inputPath).map(parseFloat);
+}
+
+function check(partFunction, input, answer)
+{
+  const calc = partFunction(input);
+  console.log(partFunction.name + ":", calc);
+  if(typeof(answer) !== typeof(undefined))
+  {
+    console.assert(calc === answer, "Calc=" + calc + ",  Answer=" + answer);
+  }
 }

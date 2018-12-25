@@ -1,0 +1,25 @@
+{
+  "name": "advent_of_code_2018",
+  "version": "1.0.0",
+  "description": "solutions for Advent of Code 2018",
+  "main": "index.js",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmegner/advent_of_code_2018.git"
+  },
+  "keywords": [
+    "AdventOfCode"
+  ],
+  "author": "Jacob Egner",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/jmegner/advent_of_code_2018/issues"
+  },
+  "homepage": "https://github.com/jmegner/advent_of_code_2018#readme"
+}
