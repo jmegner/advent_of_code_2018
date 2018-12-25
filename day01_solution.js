@@ -11,8 +11,12 @@ notes:
 const common = require('./common.js');
 const inNums = common.readNums('day01_input.txt');
 
+//------------------------------------------------------------------------------
+
 const sum = inNums.reduce((a, b) => a + b, 0);
 console.log('part1:', sum, '(should be 569)');
+
+//------------------------------------------------------------------------------
 
 let partialSums = new Set();
 let accum = 0;
