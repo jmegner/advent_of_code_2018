@@ -29,11 +29,11 @@ class Claim
 
 
 (function main() {
-  const claims = common.readLines('day03_input.txt').map(line => new Claim(line));
+  const claims = common.readObjects('day03_input.txt', Claim);
   const cellClaimers = getCellClaimers(claims);
   common.check(part1, cellClaimers, 115242);
   common.check(part2, cellClaimers, 1046);
-  console.debug("end");
+  console.debug('end');
 })();
 
 

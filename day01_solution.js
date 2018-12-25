@@ -8,6 +8,7 @@ notes:
   Array iteration helpers: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 */
 
+const _ = require('lodash');
 const common = require('./common.js');
 
 
@@ -15,13 +16,13 @@ const common = require('./common.js');
   const inNums = common.readNums('day01_input.txt');
   common.check(part1, inNums, 569);
   common.check(part2, inNums, 77666);
-  console.debug("end");
+  console.debug('end');
 })();
 
 
 function part1(inNums)
 {
-  const sum = inNums.reduce((a, b) => a + b, 0);
+  const sum = _.sum(inNums); // or without lodash: inNums.reduce((a, b) => a + b, 0);
   return sum;
 }
 

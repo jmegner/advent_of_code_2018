@@ -14,6 +14,7 @@ notes:
 module.exports.check = check;
 module.exports.readLines = readLines;
 module.exports.readNums = readNums;
+module.exports.readObjects = readObjects;
 
 function readLines(inputPath)
 {
@@ -28,6 +29,11 @@ function readLines(inputPath)
 function readNums(inputPath)
 {
   return readLines(inputPath).map(parseFloat);
+}
+
+function readObjects(inputPath, ClassConstructor)
+{
+  return readLines(inputPath).map(line => new ClassConstructor(line));
 }
 
 function check(partFunction, input, answer)

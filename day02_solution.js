@@ -22,7 +22,7 @@ const common = require('./common.js');
   const boxIds = common.readLines('day02_input.txt');
   common.check(part1, boxIds, 7533);
   common.check(part2, boxIds, 'mphcuasvrnjzzkbgdtqeoylva');
-  console.debug("end");
+  console.debug('end');
 })();
 
 
