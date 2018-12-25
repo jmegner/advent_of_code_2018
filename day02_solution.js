@@ -43,15 +43,7 @@ function hasExactCount(text, desiredCount)
     charCounter[char] = (charCounter[char] || 0) + 1;
   }
 
-  for(let char in charCounter)
-  {
-    if(charCounter[char] === desiredCount)
-    {
-      return true;
-    }
-  }
-
-  return false;
+  return Object.keys(charCounter).some(char => charCounter[char] === desiredCount);
 }
 
 function getPartialMatch(boxIds)
@@ -61,6 +53,7 @@ function getPartialMatch(boxIds)
 
   for(let boxId of boxIds)
   {
+    // charIdx is which char to remove for partialId
     for(let charIdx = 0; charIdx < boxId.length; charIdx++)
     {
       if(charIdx >= partialIdSets.length)
