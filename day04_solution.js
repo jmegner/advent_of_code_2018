@@ -2,9 +2,6 @@
 author: Jacob Egner
 date:   2018-12-25
 repo:   https://github.com/jmegner/advent_of_code_2018
-notes:
-  During this exercise, I tried out pycollections and the Counter class was astonishingly slow,
-  like 100K times slower than my poor man's Counter-via-object.
 */
 
 const _ = require('lodash');
@@ -144,4 +141,3 @@ function getMaxValKey(histo)
 {
   return getMaxValEntry(histo)[0];
 }
-
