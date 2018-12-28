@@ -36,7 +36,8 @@ class Req
   var reqs = common.readLines('day07_input.txt').map(line => line[5] + line[36]);
 
   common.check(part1, reqs, 'FHMEQGIRSXNWZBCLOTUADJPKVY');
-  common.check(part2, reqs);
+  common.check(part1b, reqs, 'FHMEQGIRSXNWZBCLOTUADJPKVY');
+  common.check(part2, reqs, 917);
   console.debug('end');
 })();
 
@@ -63,6 +64,11 @@ function part1(reqs)
   return stepsCompleted;
 }
 
+function part1b(reqs)
+{
+  return getCompletionOrderAndTime(reqs, 1)[0];
+}
+
 function part2(reqs)
 {
   return getCompletionOrderAndTime(reqs, 5)[1];
@@ -74,13 +80,14 @@ function getCompletionOrderAndTime(reqs, numWorkers)
   let stepsCompleted = '';
   let currTimeTick = 0;
   let workerSteps = new Array(numWorkers).fill(null);
-  let workerTicksRemaining = new Array(numWorkers).fill(0);
+  let workerTicksRemaining = new Array(numWorkers).fill(-1);
 
   let stepsRemaining = new Set();
   reqs.forEach(req => {
     stepsRemaining.add(req[0]);
     stepsRemaining.add(req[1]);
   });
+  let numSteps = stepsRemaining.size;
 
   do
   {
@@ -105,22 +112,24 @@ function getCompletionOrderAndTime(reqs, numWorkers)
       }
     }
 
-    // workers work during time tick
-    currTimeTick++;
-    workerTicksRemaining = workerTicksRemaining.map(numTicks => numTicks - 1);
+    // do needed ticks until a worker completes a step
+    let timeJump = _.min(workerTicksRemaining.filter(tick => tick >= 0));
+    currTimeTick += timeJump;
+    workerTicksRemaining = workerTicksRemaining.map(numTicks => numTicks - timeJump);
 
-    // TODO: handle completed steps
-
+    for(let workerIdx = 0; workerIdx < numWorkers; workerIdx++)
+    {
+      if(workerTicksRemaining[workerIdx] === 0)
+      {
+        let stepJustCompleted = workerSteps[workerIdx];
+        workerSteps[workerIdx] = null;
+        workerTicksRemaining[workerIdx] = NaN;
+        stepsCompleted += stepJustCompleted;
+        reqsRemaining = reqsPrunedOfStep(reqsRemaining, stepJustCompleted);
+      }
+    }
   }
-  while(workerSteps.some(step => step !== null));
-
-  while(stepsRemaining.size > 0)
-  {
-    let bestStep = getBestStep(stepsRemaining, reqsRemaining);
-    stepsCompleted += bestStep;
-    stepsRemaining.delete(bestStep);
-    reqsRemaining = reqsPrunedOfStep(reqsRemaining, bestStep);
-  }
+  while(stepsCompleted.length < numSteps);
 
   return [stepsCompleted, currTimeTick];
 }
@@ -135,4 +144,9 @@ function getBestStep(stepsRemaining, reqs)
 function reqsPrunedOfStep(reqs, step)
 {
   return reqs.filter(req => req[0] !== step);
+}
+
+function getTicksForStep(step)
+{
+  return step.codePointAt(0) - 'A'.codePointAt(0) + 61;
 }
